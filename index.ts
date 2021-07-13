@@ -1,23 +1,18 @@
-import * as io from 'socket.io-client'
-import { WebhookClient, MessageEmbed } from 'discord.js'
-import { config } from "./config"
+import * as io from "socket.io-client";
+import { WebhookClient, MessageEmbed } from "discord.js";
+import { config } from "./config";
 
-const link = config["socket"] + ':' + config["socket-port"]
-const donationalerts = io(link);
+const websocketUri = "wss://socket.donationalerts.ru:443";
+const donationalerts = io(websocketUri);
 
-donationalerts.emit('add-user', { token: config["donation-token"], type: config["type"] });
+donationalerts.emit("add-user", { token: config["donation-token"], type: "alert_widget" });
 
-const channel = new WebhookClient(config["discord-hook-id"], config["discord-hook-token"])
+const channel = new WebhookClient(config["discord-webhook"]["id"], config["discord-webhook"]["token"]);
 donationalerts.on("donation", (body) => {
-    let donate = JSON.parse(body);
+    let donation = JSON.parse(body);
     channel.send(
-        new MessageEmbed().setAuthor(`New donate from ${donate["username"]}`, config["pick"])
-        .setDescription(`Amount: **${donate["amount"]} ${donate["currency"]}**\nMessage: \`\`\`${clear(donate["message"])}\`\`\``)
-    )
+        new MessageEmbed().setAuthor(`New donation from ${donation["username"]}`, config["discord-webhook"]["icon-url"])
+        .setDescription(`Amount: **${donation["amount"]} ${donation["currency"]}**${donation["message"] ? "\nMessage: \`\`\`" + donation["message"] + "\`\`\`" : ""}`)
+    );
 });
- 
-function clear(text: string){
-    return text
-        .replace(/`/g, "'" + String.fromCharCode(8203))
-        .replace(/@/g, "@" + String.fromCharCode(8203));
-}
+

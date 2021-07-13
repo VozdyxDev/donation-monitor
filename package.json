@@ -11,5 +11,8 @@
     "socket.io-client": "*"
   },
   "author": "perssBest",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.0.0"
+  }
 }

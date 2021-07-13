@@ -1,11 +1,11 @@
-export const config = Object({ 
-    "socket": "wss://socket.donationalerts.ru",
-    "socket-port": "443",
-    "type": "minor",
+export const config = Object({
 
-    "donation-token": "",
-    "pick": "https://cdn.discordapp.com/attachments/732914762698194995/769910239196741662/J2MT9A04_400x400.png",
+  "donation-token": "OhINQzMFg2ZETW8becWy",
 
-    "discord-hook-id": " ",
-    "discord-hook-token": " "
+  "discord-webhook" : {
+    "id": "849711897275007007",
+    "token": "SXhkzeBQJ_bkB3f34j-J9_vnCobhZ9xpooui4K5etTEgu9EezhMKoeEyKEdzoLxbyN5o",
+    "icon-url": "https://cdn.discordapp.com/attachments/732914762698194995/769910239196741662/J2MT9A04_400x400.png"
+  }
 })
+
